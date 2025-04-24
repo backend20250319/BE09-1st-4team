@@ -50,7 +50,7 @@ public class MenuRepository {
     }
 
     public List<Menu> findMenuByCategoryName(Connection con, String name) {
-        String sql = prop.getProperty("selectMenuByMenuName");
+        String sql = prop.getProperty("selectMenuByCategoryName");
         List<Menu> menus = new ArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -93,7 +93,7 @@ public class MenuRepository {
 
                 menuWithOptions = new MenuWithOptions(menuId, menuName, categoryName, categoryId);
             }
-
+            /*
             pstmt = con.prepareStatement(optionSql);
             pstmt.setInt(1, id);
             rs = pstmt.executeQuery();
@@ -102,6 +102,8 @@ public class MenuRepository {
                 String optionType = rs.getString(4);
                 menuWithOptions.addOption(optionName, optionType);
             }
+            */
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
