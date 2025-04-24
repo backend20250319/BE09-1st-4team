@@ -17,7 +17,7 @@ public class JDBCTemplate {
         try {
             props.load(
                 new FileReader(
-                    "src/main/java/com/starfoxKiosk/config/jdbc-info.properties"));
+                    "src/main/resources/jdbc-info.properties"));
 
             String url = props.getProperty("url");
 
