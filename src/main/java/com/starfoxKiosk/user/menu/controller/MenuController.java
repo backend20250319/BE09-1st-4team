@@ -6,16 +6,20 @@ import com.starfoxKiosk.user.menu.domain.MenuWithOptions;
 import com.starfoxKiosk.user.menu.domain.OrderDTO;
 import com.starfoxKiosk.user.menu.service.MenuService;
 import com.starfoxKiosk.user.menu.view.MenuView;
+import com.starfoxKiosk.user.pay.controller.OrderController;
+
 import java.util.List;
 
 public class MenuController {
 
     private MenuView menuView;
     private MenuService menuService;
+    private OrderController orderController;
 
     public MenuController() {
         this.menuView = new MenuView();
         this.menuService = new MenuService();
+        this.orderController = new OrderController();
     }
 
     public void start() {
@@ -82,12 +86,7 @@ public class MenuController {
                 return;
             case 55:
                 // 결제 페이지
-                /**
-                 * Todo
-                 * cart 넘겨주기
-                 //넘겨주기
-                 orderController.startOrder(cart);
-                 */
+                orderController.start(cart);
                 break;
             default:
                 modifyMenu(cart.get(n - 1), n - 1);
