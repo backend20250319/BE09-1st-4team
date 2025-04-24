@@ -64,6 +64,9 @@ public class MenuView {
         System.out.print("개수를 입력하세요 : ");
         menuWithOptions.setCount(sc.nextInt());
         sc.nextLine();
+
+        System.out.print("사이즈를 선택하세요 (R, L) : ");
+        menuWithOptions.setSize(sc.nextLine());
         return true;
     }
 

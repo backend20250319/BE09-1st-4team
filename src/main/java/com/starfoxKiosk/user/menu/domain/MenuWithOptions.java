@@ -8,6 +8,7 @@ import java.util.Set;
 public class MenuWithOptions extends Menu {
 
     private int count = 0;
+    private String size = "";
     private List<Option> options;
     private Set<String> optionSet;
 
@@ -53,6 +54,10 @@ public class MenuWithOptions extends Menu {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 
     @Override

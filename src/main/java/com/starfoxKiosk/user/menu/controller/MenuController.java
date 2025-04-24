@@ -36,7 +36,6 @@ public class MenuController {
                     /*대기번호 보기*/
                 default:
                     selectedMenu(categories.get(n));
-
             }
         }
     }
@@ -53,6 +52,7 @@ public class MenuController {
                 menuWithOptions = getMenuWithOptionsById(menus.get(n - 1).getId());
                 if (selectOption(menuWithOptions)) {
                     addCart(menuWithOptions);
+                    System.out.println("장바구니에 추가되었습니다.");
                 }
         }
     }
@@ -84,6 +84,7 @@ public class MenuController {
                  * Todo
                  * cart 넘겨주기
                  //넘겨주기
+                 orderController.startOrder(cart);
                  */
                 break;
             default:
@@ -99,7 +100,10 @@ public class MenuController {
             case 0:
                 return;
             case 1:
-                selectOption(menuWithOptions);
+                boolean result = selectOption(menuWithOptions);
+                if (result) {
+                    System.out.println("성공적으로 수정되었습니다.");
+                }
                 break;
             case 2:
                 menuService.deleteCartMenu(index);
