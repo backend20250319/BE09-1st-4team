@@ -204,13 +204,13 @@ public class AdminRepository {
     // 대기 중인 주문 목록 조회
     public List<Order> getWaitingOrders(Connection conn) {
         List<Order> waitingOrders = new ArrayList<>();
-        String sql = "SELECT oh.`주문 ID`, u.`전화번호` " +
-                "FROM `order_history` oh JOIN `user` u ON oh.`고객 ID` = u.`고객 ID` " +
-                "WHERE oh.`주문 ID` IN (SELECT `주문 ID` FROM `order_item` WHERE `상태` = '대기중')"; // '옵션 값' -> '상태'로 변경 가정
+        String sql = "SELECT oh.orderId, u.phone \n" +
+                "                FROM `tbl_order_history` oh JOIN `tbl_user` u ON oh.customId = u.customId\n" +
+                "                WHERE oh.status = 'START'"; // '옵션 값' -> '상태'로 변경 가정
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                waitingOrders.add(new Order(rs.getInt("주문 ID"), rs.getString("전화번호").substring(rs.getString("전화번호").length() - 4), "대기중"));
+                waitingOrders.add(new Order(rs.getInt("orderId"), rs.getString("phone").substring(rs.getString("phone").length() - 4), "대기중"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
