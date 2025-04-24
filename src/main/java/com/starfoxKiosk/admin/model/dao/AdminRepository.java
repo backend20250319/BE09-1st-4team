@@ -168,6 +168,7 @@ public class AdminRepository {
     // 대기 중인 주문 목록 조회
     public List<Order> getWaitingOrders(Connection conn) {
         List<Order> waitingOrders = new ArrayList<>();
+
         String sql = "SELECT oh.`orderId`, u.`phone` " +
                 "FROM `tbl_order_history` oh JOIN `tbl_user` u ON oh.`customId` = u.`customId` " +
                 "WHERE oh.`orderId` IN (SELECT `orderId` FROM `tbl_order_item` WHERE `status` = '대기중')";

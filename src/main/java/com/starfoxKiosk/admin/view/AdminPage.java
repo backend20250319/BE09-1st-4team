@@ -304,7 +304,7 @@ public class AdminPage {
     }
 
     private void viewWaitingOrders() {
-        List<Order> waitingOrders = null; //adminService.getWaitingOrders();
+        List<Order> waitingOrders = ac.viewWaitingOrders();
         if (waitingOrders.isEmpty()) {
             System.out.println("대기 중인 주문이 없습니다.");
         } else {
