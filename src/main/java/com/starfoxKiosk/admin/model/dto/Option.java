@@ -14,20 +14,17 @@ public class Option {
     }
 
     // 모든 필드를 포함하는 생성자
-    public Option(int id, String name, String detail, String optionType, Integer maxQuantity, String allowedValues, boolean isRequired) {
+    public Option(int id, String name, String detail, String optionType, Integer maxQuantity, String allowedValues) {
         this.id = id;
         this.name = name;
         this.detail = detail;
         this.optionType = optionType;
         this.maxQuantity = maxQuantity;
         this.allowedValues = allowedValues;
-        this.isRequired = isRequired;
     }
 
     // Getter 메소드
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
     public String getName() {
         return name;
