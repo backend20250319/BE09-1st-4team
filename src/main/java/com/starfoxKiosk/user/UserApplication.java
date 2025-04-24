@@ -1,5 +1,6 @@
 package com.starfoxKiosk.user;
 
+
 import com.starfoxKiosk.user.menu.controller.MenuController;
 
 public class UserApplication {
