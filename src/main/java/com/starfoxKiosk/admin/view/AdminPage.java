@@ -110,12 +110,15 @@ public class AdminPage {
         int price = Integer.parseInt(scanner.nextLine());
         System.out.print("카테고리 ID: ");
         int categoryId = Integer.parseInt(scanner.nextLine());
-
-//        if (ac.addMenuItem(name, price, categoryId)) {
-//            System.out.println("상품이 성공적으로 추가되었습니다.");
-//        } else {
-//            System.out.println("상품 추가에 실패했습니다.");
-//        }
+        Menu menu = new Menu();
+        menu.setName(name);
+        menu.setPrice(price);
+        menu.setCategoryId(categoryId);
+        if (ac.addMenuItem(menu)) {
+            System.out.println("상품이 성공적으로 추가되었습니다.");
+        } else {
+            System.out.println("상품 추가에 실패했습니다.");
+        }
     }
 
 
