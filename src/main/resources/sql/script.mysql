@@ -1,3 +1,78 @@
+<<<<<<< HEAD
+    -- DROP tables if exist
+    DROP TABLE IF EXISTS `user`;
+    DROP TABLE IF EXISTS `category`;
+    DROP TABLE IF EXISTS `menu`;
+    DROP TABLE IF EXISTS `option`;
+    DROP TABLE IF EXISTS `menu_option_relation`;
+    DROP TABLE IF EXISTS `membership`;
+    DROP TABLE IF EXISTS `order_history`;
+    DROP TABLE IF EXISTS `order_item`;
+        -- USER table
+    CREATE TABLE `user` (
+    `고객 ID` INT NOT NULL COMMENT 'Customer ID',
+      `전화번호` VARCHAR(20) NOT NULL COMMENT 'Phone Number',
+                         `누적금액` INT COMMENT 'Total Spent',
+                              PRIMARY KEY (`고객 ID`)
+    ) COMMENT='User Table';
+        -- CATEGORY table
+    CREATE TABLE `category` (
+    `카테고리 ID` INT NOT NULL COMMENT 'Category ID',
+    `카테고리명` VARCHAR(50) NOT NULL COMMENT 'Category Name',
+                        PRIMARY KEY (`카테고리 ID`)
+    ) COMMENT='Category Table';
+        -- MENU table
+    CREATE TABLE `menu` (
+    `메뉴 ID` INT NOT NULL COMMENT 'Menu ID',
+      `메뉴명` VARCHAR(100) NOT NULL COMMENT 'Menu Name',
+                         `메뉴가격` INT NOT NULL COMMENT 'Price',
+                              `카테고리 ID` INT COMMENT 'Category ID',
+                                 PRIMARY KEY (`메뉴 ID`)
+    ) COMMENT='Menu Table';
+        -- OPTION table (수정됨)
+    CREATE TABLE `option` (
+    `옵션 ID` INT NOT NULL COMMENT 'Option ID',
+      `옵션 이름` VARCHAR(100) NOT NULL COMMENT 'Option Name',
+                           `옵션 상세` VARCHAR(255) COMMENT 'Option Description',
+                                                `필수 여부` BOOLEAN NOT NULL COMMENT 'Is Required Option',
+                                                                `옵션 타입` VARCHAR(50) COMMENT 'Option Type (QUANTITY, CHOICE, BOOLEAN, TEXT)',
+                                                                                    `최대 수량` INT COMMENT 'Maximum Quantity for QUANTITY type',
+                                                                                                `허용 값` VARCHAR(255) COMMENT 'Allowed Values for CHOICE type (comma-separated)',
+                                                                                                                    PRIMARY KEY (`옵션 ID`)
+    ) COMMENT='Option Table';
+        -- MENU-OPTION RELATION table
+    CREATE TABLE `menu_option_relation` (
+    `옵션 ID` INT NOT NULL,
+      `메뉴 ID` INT NOT NULL,
+              PRIMARY KEY (`옵션 ID`, `메뉴 ID`)
+    ) COMMENT='Menu-Option Relation';
+        -- MEMBERSHIP table
+    CREATE TABLE `membership` (
+    `멤버십 ID` INT NOT NULL COMMENT 'Membership ID',
+      `멤버십 이름` VARCHAR(50) NOT NULL COMMENT 'Membership Name',
+                           `기준 금액` INT NOT NULL COMMENT 'Threshold Amount',
+                                 `고객 ID` INT NOT NULL COMMENT 'Customer ID',
+                                     PRIMARY KEY (`멤버십 ID`)
+    ) COMMENT='Membership Table';
+        -- ORDER HISTORY table
+    CREATE TABLE `order_history` (
+    `주문 ID` INT NOT NULL COMMENT 'Order ID',
+      `고객 ID` INT NOT NULL COMMENT 'Customer ID',
+        PRIMARY KEY (`주문 ID`)
+    ) COMMENT='Order History Table';
+        -- ORDER ITEM table
+    CREATE TABLE `order_item` (
+    `주문 ID` INT NOT NULL COMMENT 'Order ID',
+      `메뉴 ID` INT NOT NULL COMMENT 'Menu ID',
+        `주문수량` INT NOT NULL COMMENT 'Quantity',
+    `옵션 ID` INT COMMENT 'Option ID',
+    `옵션 값` VARCHAR(50) COMMENT 'Selected Option Value',
+                       PRIMARY KEY (`주문 ID`, `메뉴 ID`, `옵션 ID`)
+    ) COMMENT='Order Item Table';
+        -- INSERT INTO USER
+    INSERT INTO `user` VALUES (1, '010-1234-5678', 0);
+    INSERT INTO `user` VALUES (2, '010-5678-5678', 1000000);
+=======
   ALTER TABLE `tbl_order_item`
   DROP CONSTRAINT tbl_order_item_FK2;
 
@@ -35,6 +110,7 @@
    REFERENCES `tbl_user` (`customId` );
 
   DROP TABLE IF EXISTS `tbl_order_history`;
+>>>>>>> d7a4a0db79352fea65231d01010943fc0553b958
 
 
   ALTER TABLE `tbl_order_item`
@@ -98,6 +174,257 @@
   ALTER TABLE `tbl_relation`
   DROP CONSTRAINT tbl_relation_FK;
 
+<<<<<<< HEAD
+        -- INSERT INTO OPTION (수정됨: 옵션 타입, 최대 수량, 허용 값 추가)
+        -- 필수 옵션
+    INSERT INTO `option` VALUES (101, '포장/매장', '포장 또는 매장 이용 여부', TRUE, 'CHOICE', NULL, 'Takeout,매장');
+    INSERT INTO `option` VALUES (102, '컵 사이즈', '컵 사이즈 선택', TRUE, 'CHOICE', NULL, 'Small,Medium,Large');
+    INSERT INTO `option` VALUES (103, 'ICED/HOT', 'ICED 또는 HOT 선택', TRUE, 'CHOICE', NULL, 'ICED,HOT');
+
+        -- 선택 옵션
+    INSERT INTO `option` VALUES (201, '에스프레소 샷', '에스프레소 샷 추가/빼기 (0~10)', FALSE, 'QUANTITY', 10, NULL);
+    INSERT INTO `option` VALUES (202, '시럽', '시럽 추가/빼기 (0~10)', FALSE, 'QUANTITY', 10, NULL);
+    INSERT INTO `option` VALUES (203, '얼음', '얼음 양 선택 (없음, 보통, 많이)', FALSE, 'CHOICE', NULL, '없음,보통,많이');
+
+    INSERT INTO `menu_option_relation` VALUES (101, 1);
+    INSERT INTO `menu_option_relation` VALUES (102, 1);
+    INSERT INTO `menu_option_relation` VALUES (103, 1);
+    INSERT INTO `menu_option_relation` VALUES (101, 2);
+    INSERT INTO `menu_option_relation` VALUES (102, 2);
+    INSERT INTO `menu_option_relation` VALUES (103, 2);
+    INSERT INTO `menu_option_relation` VALUES (101, 3);
+    INSERT INTO `menu_option_relation` VALUES (102, 3);
+    INSERT INTO `menu_option_relation` VALUES (103, 3);
+    INSERT INTO `menu_option_relation` VALUES (101, 4);
+    INSERT INTO `menu_option_relation` VALUES (102, 4);
+    INSERT INTO `menu_option_relation` VALUES (103, 4);
+    INSERT INTO `menu_option_relation` VALUES (101, 5);
+    INSERT INTO `menu_option_relation` VALUES (102, 5);
+    INSERT INTO `menu_option_relation` VALUES (103, 5);
+    INSERT INTO `menu_option_relation` VALUES (101, 6);
+    INSERT INTO `menu_option_relation` VALUES (102, 6);
+    INSERT INTO `menu_option_relation` VALUES (103, 6);
+    INSERT INTO `menu_option_relation` VALUES (101, 8);
+    INSERT INTO `menu_option_relation` VALUES (102, 8);
+    INSERT INTO `menu_option_relation` VALUES (103, 8);
+    INSERT INTO `menu_option_relation` VALUES (101, 9);
+    INSERT INTO `menu_option_relation` VALUES (102, 9);
+    INSERT INTO `menu_option_relation` VALUES (103, 9);
+    INSERT INTO `menu_option_relation` VALUES (101, 10);
+    INSERT INTO `menu_option_relation` VALUES (102, 10);
+    INSERT INTO `menu_option_relation` VALUES (103, 10);
+    INSERT INTO `menu_option_relation` VALUES (101, 11);
+    INSERT INTO `menu_option_relation` VALUES (102, 11);
+    INSERT INTO `menu_option_relation` VALUES (103, 11);
+    INSERT INTO `menu_option_relation` VALUES (101, 12);
+    INSERT INTO `menu_option_relation` VALUES (102, 12);
+    INSERT INTO `menu_option_relation` VALUES (103, 12);
+    INSERT INTO `menu_option_relation` VALUES (101, 13);
+    INSERT INTO `menu_option_relation` VALUES (102, 13);
+    INSERT INTO `menu_option_relation` VALUES (103, 13);
+    INSERT INTO `menu_option_relation` VALUES (101, 15);
+    INSERT INTO `menu_option_relation` VALUES (102, 15);
+    INSERT INTO `menu_option_relation` VALUES (103, 15);
+    INSERT INTO `menu_option_relation` VALUES (101, 16);
+    INSERT INTO `menu_option_relation` VALUES (102, 16);
+    INSERT INTO `menu_option_relation` VALUES (103, 16);
+    INSERT INTO `menu_option_relation` VALUES (101, 17);
+    INSERT INTO `menu_option_relation` VALUES (102, 17);
+    INSERT INTO `menu_option_relation` VALUES (103, 17);
+    INSERT INTO `menu_option_relation` VALUES (101, 18);
+    INSERT INTO `menu_option_relation` VALUES (102, 18);
+    INSERT INTO `menu_option_relation` VALUES (103, 18);
+    INSERT INTO `menu_option_relation` VALUES (101, 19);
+    INSERT INTO `menu_option_relation` VALUES (102, 19);
+    INSERT INTO `menu_option_relation` VALUES (103, 19);
+    INSERT INTO `menu_option_relation` VALUES (101, 20);
+    INSERT INTO `menu_option_relation` VALUES (102, 20);
+    INSERT INTO `menu_option_relation` VALUES (103, 20);
+    INSERT INTO `menu_option_relation` VALUES (101, 21);
+    INSERT INTO `menu_option_relation` VALUES (102, 21);
+    INSERT INTO `menu_option_relation` VALUES (103, 21);
+    INSERT INTO `menu_option_relation` VALUES (101, 22);
+    INSERT INTO `menu_option_relation` VALUES (102, 22);
+    INSERT INTO `menu_option_relation` VALUES (103, 22);
+    INSERT INTO `menu_option_relation` VALUES (101, 23);
+    INSERT INTO `menu_option_relation` VALUES (102, 23);
+    INSERT INTO `menu_option_relation` VALUES (103, 23);
+    INSERT INTO `menu_option_relation` VALUES (101, 24);
+    INSERT INTO `menu_option_relation` VALUES (102, 24);
+    INSERT INTO `menu_option_relation` VALUES (103, 24);
+    INSERT INTO `menu_option_relation` VALUES (101, 25);
+    INSERT INTO `menu_option_relation` VALUES (102, 25);
+    INSERT INTO `menu_option_relation` VALUES (103, 25);
+    INSERT INTO `menu_option_relation` VALUES (101, 26);
+    INSERT INTO `menu_option_relation` VALUES (102, 26);
+    INSERT INTO `menu_option_relation` VALUES (103, 26);
+    INSERT INTO `menu_option_relation` VALUES (101, 27);
+    INSERT INTO `menu_option_relation` VALUES (102, 27);
+    INSERT INTO `menu_option_relation` VALUES (103, 27);
+    INSERT INTO `menu_option_relation` VALUES (101, 30);
+    INSERT INTO `menu_option_relation` VALUES (102, 30);
+    INSERT INTO `menu_option_relation` VALUES (103, 30);
+    INSERT INTO `menu_option_relation` VALUES (101, 32);
+    INSERT INTO `menu_option_relation` VALUES (102, 32);
+    INSERT INTO `menu_option_relation` VALUES (103, 32);
+    INSERT INTO `menu_option_relation` VALUES (101, 33);
+    INSERT INTO `menu_option_relation` VALUES (102, 33);
+    INSERT INTO `menu_option_relation` VALUES (103, 33);
+    INSERT INTO `menu_option_relation` VALUES (101, 34);
+    INSERT INTO `menu_option_relation` VALUES (102, 34);
+    INSERT INTO `menu_option_relation` VALUES (103, 34);
+    INSERT INTO `menu_option_relation` VALUES (101, 35);
+    INSERT INTO `menu_option_relation` VALUES (102, 35);
+    INSERT INTO `menu_option_relation` VALUES (103, 35);
+    INSERT INTO `menu_option_relation` VALUES (101, 36);
+    INSERT INTO `menu_option_relation` VALUES (102, 36);
+    INSERT INTO `menu_option_relation` VALUES (103, 36);
+    INSERT INTO `menu_option_relation` VALUES (101, 37);
+    INSERT INTO `menu_option_relation` VALUES (102, 37);
+    INSERT INTO `menu_option_relation` VALUES (103, 37);
+    INSERT INTO `menu_option_relation` VALUES (101, 38);
+    INSERT INTO `menu_option_relation` VALUES (102, 38);
+    INSERT INTO `menu_option_relation` VALUES (103, 38);
+    INSERT INTO `menu_option_relation` VALUES (101, 39);
+    INSERT INTO `menu_option_relation` VALUES (102, 39);
+    INSERT INTO `menu_option_relation` VALUES (103, 39);
+    INSERT INTO `menu_option_relation` VALUES (101, 40);
+    INSERT INTO `menu_option_relation` VALUES (102, 40);
+    INSERT INTO `menu_option_relation` VALUES (103, 40);
+    INSERT INTO `menu_option_relation` VALUES (101, 41);
+    INSERT INTO `menu_option_relation` VALUES (102, 41);
+    INSERT INTO `menu_option_relation` VALUES (103, 41);
+    INSERT INTO `menu_option_relation` VALUES (101, 42);
+    INSERT INTO `menu_option_relation` VALUES (102, 42);
+    INSERT INTO `menu_option_relation` VALUES (103, 42);
+    INSERT INTO `menu_option_relation` VALUES (101, 43);
+    INSERT INTO `menu_option_relation` VALUES (102, 43);
+    INSERT INTO `menu_option_relation` VALUES (103, 43);
+    INSERT INTO `menu_option_relation` VALUES (101, 44);
+    INSERT INTO `menu_option_relation` VALUES (102, 44);
+    INSERT INTO `menu_option_relation` VALUES (103, 44);
+        -- 선택 옵션 "에스프레소 샷" (ID 201)을 모든 메뉴에 연결
+    INSERT INTO `menu_option_relation` VALUES (201, 1);
+    INSERT INTO `menu_option_relation` VALUES (201, 2);
+    INSERT INTO `menu_option_relation` VALUES (201, 3);
+    INSERT INTO `menu_option_relation` VALUES (201, 4);
+    INSERT INTO `menu_option_relation` VALUES (201, 5);
+    INSERT INTO `menu_option_relation` VALUES (201, 6);
+    INSERT INTO `menu_option_relation` VALUES (201, 8);
+    INSERT INTO `menu_option_relation` VALUES (201, 9);
+    INSERT INTO `menu_option_relation` VALUES (201, 10);
+    INSERT INTO `menu_option_relation` VALUES (201, 11);
+    INSERT INTO `menu_option_relation` VALUES (201, 12);
+    INSERT INTO `menu_option_relation` VALUES (201, 13);
+    INSERT INTO `menu_option_relation` VALUES (201, 15);
+    INSERT INTO `menu_option_relation` VALUES (201, 16);
+    INSERT INTO `menu_option_relation` VALUES (201, 17);
+    INSERT INTO `menu_option_relation` VALUES (201, 18);
+    INSERT INTO `menu_option_relation` VALUES (201, 19);
+    INSERT INTO `menu_option_relation` VALUES (201, 20);
+    INSERT INTO `menu_option_relation` VALUES (201, 21);
+    INSERT INTO `menu_option_relation` VALUES (201, 22);
+    INSERT INTO `menu_option_relation` VALUES (201, 23);
+    INSERT INTO `menu_option_relation` VALUES (201, 24);
+    INSERT INTO `menu_option_relation` VALUES (201, 25);
+    INSERT INTO `menu_option_relation` VALUES (201, 26);
+    INSERT INTO `menu_option_relation` VALUES (201, 27);
+    INSERT INTO `menu_option_relation` VALUES (201, 30);
+    INSERT INTO `menu_option_relation` VALUES (201, 32);
+    INSERT INTO `menu_option_relation` VALUES (201, 33);
+    INSERT INTO `menu_option_relation` VALUES (201, 34);
+    INSERT INTO `menu_option_relation` VALUES (201, 35);
+    INSERT INTO `menu_option_relation` VALUES (201, 36);
+    INSERT INTO `menu_option_relation` VALUES (201, 37);
+    INSERT INTO `menu_option_relation` VALUES (201, 38);
+    INSERT INTO `menu_option_relation` VALUES (201, 39);
+    INSERT INTO `menu_option_relation` VALUES (201, 40);
+    INSERT INTO `menu_option_relation` VALUES (201, 41);
+    INSERT INTO `menu_option_relation` VALUES (201, 42);
+    INSERT INTO `menu_option_relation` VALUES (201, 43);
+    INSERT INTO `menu_option_relation` VALUES (201, 44);
+        -- 선택 옵션 "시럽" (ID 202)을 모든 메뉴에 연결
+    INSERT INTO `menu_option_relation` VALUES (202, 1);
+    INSERT INTO `menu_option_relation` VALUES (202, 2);
+    INSERT INTO `menu_option_relation` VALUES (202, 3);
+    INSERT INTO `menu_option_relation` VALUES (202, 4);
+    INSERT INTO `menu_option_relation` VALUES (202, 5);
+    INSERT INTO `menu_option_relation` VALUES (202, 6);
+    INSERT INTO `menu_option_relation` VALUES (202, 8);
+    INSERT INTO `menu_option_relation` VALUES (202, 9);
+    INSERT INTO `menu_option_relation` VALUES (202, 10);
+    INSERT INTO `menu_option_relation` VALUES (202, 11);
+    INSERT INTO `menu_option_relation` VALUES (202, 12);
+    INSERT INTO `menu_option_relation` VALUES (202, 13);
+    INSERT INTO `menu_option_relation` VALUES (202, 15);
+    INSERT INTO `menu_option_relation` VALUES (202, 16);
+    INSERT INTO `menu_option_relation` VALUES (202, 17);
+    INSERT INTO `menu_option_relation` VALUES (202, 18);
+    INSERT INTO `menu_option_relation` VALUES (202, 19);
+    INSERT INTO `menu_option_relation` VALUES (202, 20);
+    INSERT INTO `menu_option_relation` VALUES (202, 21);
+    INSERT INTO `menu_option_relation` VALUES (202, 22);
+    INSERT INTO `menu_option_relation` VALUES (202, 23);
+    INSERT INTO `menu_option_relation` VALUES (202, 24);
+    INSERT INTO `menu_option_relation` VALUES (202, 25);
+    INSERT INTO `menu_option_relation` VALUES (202, 26);
+    INSERT INTO `menu_option_relation` VALUES (202, 27);
+    INSERT INTO `menu_option_relation` VALUES (202, 30);
+    INSERT INTO `menu_option_relation` VALUES (202, 32);
+    INSERT INTO `menu_option_relation` VALUES (202, 33);
+    INSERT INTO `menu_option_relation` VALUES (202, 34);
+    INSERT INTO `menu_option_relation` VALUES (202, 35);
+    INSERT INTO `menu_option_relation` VALUES (202, 36);
+    INSERT INTO `menu_option_relation` VALUES (202, 37);
+    INSERT INTO `menu_option_relation` VALUES (202, 38);
+    INSERT INTO `menu_option_relation` VALUES (202, 39);
+    INSERT INTO `menu_option_relation` VALUES (202, 40);
+    INSERT INTO `menu_option_relation` VALUES (202, 41);
+    INSERT INTO `menu_option_relation` VALUES (202, 42);
+    INSERT INTO `menu_option_relation` VALUES (202, 43);
+    INSERT INTO `menu_option_relation` VALUES (202, 44);
+
+        -- 선택 옵션 "얼음" (ID 203)을 모든 메뉴에 연결 (HOT 메뉴에는 의미가 없을 수 있음)
+    INSERT INTO `menu_option_relation` VALUES (203, 1);
+    INSERT INTO `menu_option_relation` VALUES (203, 2);
+    INSERT INTO `menu_option_relation` VALUES (203, 3);
+    INSERT INTO `menu_option_relation` VALUES (203, 4);
+    INSERT INTO `menu_option_relation` VALUES (203, 5);
+    INSERT INTO `menu_option_relation` VALUES (203, 6);
+    INSERT INTO `menu_option_relation` VALUES (203, 8);
+    INSERT INTO `menu_option_relation` VALUES (203, 9);
+    INSERT INTO `menu_option_relation` VALUES (203, 10);
+    INSERT INTO `menu_option_relation` VALUES (203, 11);
+    INSERT INTO `menu_option_relation` VALUES (203, 12);
+    INSERT INTO `menu_option_relation` VALUES (203, 13);
+    INSERT INTO `menu_option_relation` VALUES (203, 15);
+    INSERT INTO `menu_option_relation` VALUES (203, 16);
+    INSERT INTO `menu_option_relation` VALUES (203, 17);
+    INSERT INTO `menu_option_relation` VALUES (203, 18);
+    INSERT INTO `menu_option_relation` VALUES (203, 19);
+    INSERT INTO `menu_option_relation` VALUES (203, 20);
+    INSERT INTO `menu_option_relation` VALUES (203, 21);
+    INSERT INTO `menu_option_relation` VALUES (203, 22);
+    INSERT INTO `menu_option_relation` VALUES (203, 23);
+    INSERT INTO `menu_option_relation` VALUES (203, 24);
+    INSERT INTO `menu_option_relation` VALUES (203, 25);
+    INSERT INTO `menu_option_relation` VALUES (203, 26);
+    INSERT INTO `menu_option_relation` VALUES (203, 27);
+    INSERT INTO `menu_option_relation` VALUES (203, 30);
+    INSERT INTO `menu_option_relation` VALUES (203, 32);
+    INSERT INTO `menu_option_relation` VALUES (203, 33);
+    INSERT INTO `menu_option_relation` VALUES (203, 34);
+    INSERT INTO `menu_option_relation` VALUES (203, 35);
+    INSERT INTO `menu_option_relation` VALUES (203, 36);
+    INSERT INTO `menu_option_relation` VALUES (203, 37);
+    INSERT INTO `menu_option_relation` VALUES (203, 38);
+    INSERT INTO `menu_option_relation` VALUES (203, 39);
+    INSERT INTO `menu_option_relation` VALUES (203, 40);
+    INSERT INTO `menu_option_relation` VALUES (203, 41);
+    INSERT INTO `menu_option_relation` VALUES (203, 42);
+    INSERT INTO `menu_option_relation` VALUES (203, 43);
+    INSERT INTO `menu_option_relation` VALUES (203, 44);
+=======
   ALTER TABLE `tbl_relation`
   DROP CONSTRAINT tbl_relation_FK1;
 
@@ -629,3 +956,4 @@ INSERT INTO `tbl_relation` VALUES (203, 41);
 INSERT INTO `tbl_relation` VALUES (203, 42);
 INSERT INTO `tbl_relation` VALUES (203, 43);
 INSERT INTO `tbl_relation` VALUES (203, 44);
+>>>>>>> d7a4a0db79352fea65231d01010943fc0553b958
