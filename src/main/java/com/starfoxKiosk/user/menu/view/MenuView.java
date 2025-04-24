@@ -32,6 +32,7 @@ public class MenuView {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < menus.size(); i++) {
             sb.append(i + 1).append(".").append(menus.get(i).getName());
+            sb.append(", 가격 : ").append(menus.get(i).getPrice());
             sb.append("\n");
         }
         sb.append("0.뒤로가기\n");
@@ -64,6 +65,7 @@ public class MenuView {
         }
         System.out.print("개수를 입력하세요 : ");
         menuWithOptions.setCount(sc.nextInt());
+        menuWithOptions.setTotalPrice(menuWithOptions.getCount() * menuWithOptions.getPrice());
         sc.nextLine();
 
         System.out.print("사이즈를 선택하세요 (R, L) : ");

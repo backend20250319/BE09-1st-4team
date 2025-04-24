@@ -9,21 +9,12 @@ public class MenuWithOptions extends Menu {
 
     private int count = 0;
     private String size = "";
+    private int totalPrice = 0;
     private List<Option> options;
     private Set<String> optionSet;
 
-    public MenuWithOptions(int id, String name, String categoryName, int categoryId,
-        List<Option> options) {
-        super(id, name, categoryName, categoryId);
-        this.options = options;
-        optionSet = new HashSet<>();
-        for (Option option : options) {
-            optionSet.add(option.getName());
-        }
-    }
-
-    public MenuWithOptions(int id, String name, String categoryName, int categoryId) {
-        super(id, name, categoryName, categoryId);
+    public MenuWithOptions(int id, String name, String categoryName, int categoryId, int price) {
+        super(id, name, categoryName, categoryId, price);
         options = new ArrayList<>();
         optionSet = new HashSet<>();
     }
@@ -60,13 +51,25 @@ public class MenuWithOptions extends Menu {
         this.size = size;
     }
 
+    public String getSize() {
+        return size;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     @Override
     public String toString() {
         String s = "";
 
         s += this.getName() + ", ";
         s += getCount() + "개";
-
+        s += " " + getTotalPrice() + "원";
         s += "\n";
         for (Option option : options) {
             s += option.getName() + " : " + option.getTypes() + "\n";
