@@ -4,6 +4,7 @@ import com.starfoxKiosk.common.JDBCTemplate;
 import com.starfoxKiosk.user.menu.domain.Category;
 import com.starfoxKiosk.user.menu.domain.Menu;
 import com.starfoxKiosk.user.menu.domain.MenuWithOptions;
+import com.starfoxKiosk.user.menu.domain.OrderDTO;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -112,5 +113,29 @@ public class MenuRepository {
         }
 
         return menuWithOptions;
+    }
+
+    public List<OrderDTO> findOrders(Connection con) {
+        String sql = prop.getProperty("selectOrder");
+        List<OrderDTO> orders = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int orderId = rs.getInt(1);
+                int customId = rs.getInt(2);
+                String status = rs.getString(3);
+                orders.add(new OrderDTO(orderId, customId, status));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCTemplate.close(rs);
+            JDBCTemplate.close(pstmt);
+        }
+
+        return orders;
     }
 }

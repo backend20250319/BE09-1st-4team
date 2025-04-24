@@ -19,14 +19,10 @@
     ON a.categoryId = b.categoryId
     WHERE a.menuId = ?
   </entry>
-  <entry key="selectOptionByMenuId">
-    SELECT a.menuId, a.menuName, c.optionName, c.optionDetail, c.requireOption, c.optionType,
-    c.maxQuantity, c.allowValue
-    FROM tbl_menu a
-    INNER JOIN tbl_relation b
-    ON a.menuId = b.menuId
-    INNER JOIN tbl_option c
-    ON c.optionId = b.optionId
-    WHERE a.menuId = ?
+  <entry key="selectOrder">
+    SELECT
+    orderId, customId, status
+    FROM tbl_order_history
+    ORDER BY status
   </entry>
 </properties>

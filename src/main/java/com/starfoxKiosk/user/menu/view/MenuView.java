@@ -4,6 +4,7 @@ import com.starfoxKiosk.user.menu.domain.Category;
 import com.starfoxKiosk.user.menu.domain.Menu;
 import com.starfoxKiosk.user.menu.domain.MenuWithOptions;
 import com.starfoxKiosk.user.menu.domain.Option;
+import com.starfoxKiosk.user.menu.domain.OrderDTO;
 import java.util.List;
 import java.util.Scanner;
 
@@ -96,6 +97,15 @@ public class MenuView {
         int n = sc.nextInt();
         sc.nextLine();
         return n;
+    }
+
+
+    public void printOrder(List<OrderDTO> list) {
+        for (OrderDTO order : list) {
+            System.out.println(order);
+        }
+        System.out.println("아무거나 입력해주세요 : ");
+        String s = sc.nextLine();
     }
 
 }

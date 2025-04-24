@@ -3,6 +3,7 @@ package com.starfoxKiosk.user.menu.controller;
 import com.starfoxKiosk.user.menu.domain.Category;
 import com.starfoxKiosk.user.menu.domain.Menu;
 import com.starfoxKiosk.user.menu.domain.MenuWithOptions;
+import com.starfoxKiosk.user.menu.domain.OrderDTO;
 import com.starfoxKiosk.user.menu.service.MenuService;
 import com.starfoxKiosk.user.menu.view.MenuView;
 import java.util.List;
@@ -33,7 +34,8 @@ public class MenuController {
                     break;
                 case 44:
                     //Todo
-                    /*대기번호 보기*/
+                    showOrder();
+                    break;
                 default:
                     selectedMenu(categories.get(n));
             }
@@ -109,5 +111,10 @@ public class MenuController {
                 menuService.deleteCartMenu(index);
                 break;
         }
+    }
+
+    public void showOrder() {
+        List<OrderDTO> orders = menuService.getOrder();
+        menuView.printOrder(orders);
     }
 }
