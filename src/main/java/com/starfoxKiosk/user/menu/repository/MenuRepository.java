@@ -64,7 +64,8 @@ public class MenuRepository {
                 String menuName = rs.getString(2);
                 String categoryName = rs.getString(3);
                 int categoryId = rs.getInt(4);
-                menus.add(new Menu(menuId, menuName, categoryName, categoryId));
+                int price = rs.getInt(5);
+                menus.add(new Menu(menuId, menuName, categoryName, categoryId, price));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -91,8 +92,10 @@ public class MenuRepository {
                 String menuName = rs.getString(2);
                 String categoryName = rs.getString(3);
                 int categoryId = rs.getInt(4);
+                int price = rs.getInt(5);
 
-                menuWithOptions = new MenuWithOptions(menuId, menuName, categoryName, categoryId);
+                menuWithOptions = new MenuWithOptions(menuId, menuName, categoryName, categoryId,
+                    price);
             }
             /*
             pstmt = con.prepareStatement(optionSql);
@@ -127,6 +130,7 @@ public class MenuRepository {
                 int orderId = rs.getInt(1);
                 int customId = rs.getInt(2);
                 String status = rs.getString(3);
+
                 orders.add(new OrderDTO(orderId, customId, status));
             }
         } catch (SQLException e) {

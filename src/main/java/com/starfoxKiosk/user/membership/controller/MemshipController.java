@@ -1,6 +1,5 @@
 package com.starfoxKiosk.user.membership.controller;
 
-import com.starfoxKiosk.user.membership.domain.Membership;
 import com.starfoxKiosk.user.membership.service.MemshipService;
 import com.starfoxKiosk.user.membership.view.MemshipView;
 

@@ -6,14 +6,14 @@
     SELECT * FROM tbl_category
   </entry>
   <entry key="selectMenuByCategoryName">
-    SELECT a.menuId, a.menuName, b.categoryName, b.categoryId
+    SELECT a.menuId, a.menuName, b.categoryName, b.categoryId, a.menuPrice
     FROM tbl_menu a
     INNER JOIN tbl_category b
     ON a.categoryId = b.categoryId
     WHERE b.categoryName = ?
   </entry>
   <entry key="selectMenuById">
-    SELECT a.menuId, a.menuName, b.categoryName, b.categoryId
+    SELECT a.menuId, a.menuName, b.categoryName, b.categoryId, a.menuPrice
     FROM tbl_menu a
     INNER JOIN tbl_category b
     ON a.categoryId = b.categoryId
