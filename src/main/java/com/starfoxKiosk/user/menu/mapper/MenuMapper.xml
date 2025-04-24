@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <comment/>
+  <entry key="selectCategories">
+    SELECT * FROM category
+  </entry>
+  <entry key="selectMenuByMenuName">
+    SELECT a.`메뉴 id`, a.메뉴명, b.카테고리명, b.`카테고리 id`
+    FROM menu a
+    INNER JOIN category b
+    ON a.`카테고리 ID` = b.`카테고리 ID`
+    WHERE b.카테고리명 = ?
+  </entry>
+  <entry key="selectMenuById">
+    SELECT a.`메뉴 id`, a.메뉴명, b.카테고리명, b.`카테고리 id`
+    FROM menu a
+    INNER JOIN category b
+    ON a.`카테고리 ID` = b.`카테고리 ID`
+    WHERE a.`메뉴 id` = ?
+  </entry>
+  <entry key="selectOptionByMenuId">
+    SELECT a.`메뉴 id`, a.메뉴명, c.`옵션 이름`, c.`옵션 상세`
+    FROM menu a
+    INNER JOIN menu_option_relation b
+    ON a.`메뉴 ID` = b.`메뉴 ID`
+    INNER JOIN `option` c
+    ON c.`옵션 ID` = b.`옵션 ID`
+    WHERE a.`메뉴 ID` = ?
+  </entry>
+</properties>
