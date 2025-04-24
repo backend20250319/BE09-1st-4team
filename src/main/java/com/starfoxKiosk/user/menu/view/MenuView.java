@@ -75,5 +75,24 @@ public class MenuView {
         }
     }
 
+    public int inputCartMenu() {
+        System.out.println("0. 뒤로");
+        System.out.print("번호를 입력하세요 : ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        return n;
+    }
+
+    public int inputModifyMenu(MenuWithOptions menu) {
+        System.out.printf(menu.toString());
+        System.out.println("0. 뒤로");
+        System.out.println("1. 변경");
+        System.out.println("2. 삭제");
+        System.out.print("번호를 입력하세요 : ");
+
+        int n = sc.nextInt();
+        sc.nextLine();
+        return n;
+    }
 
 }
