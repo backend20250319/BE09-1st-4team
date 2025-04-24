@@ -1,0 +1,225 @@
+    -- DROP tables if exist
+    DROP TABLE IF EXISTS `user`;
+    DROP TABLE IF EXISTS `category`;
+    DROP TABLE IF EXISTS `menu`;
+    DROP TABLE IF EXISTS `option`;
+    DROP TABLE IF EXISTS `menu_option_relation`;
+    DROP TABLE IF EXISTS `membership`;
+    DROP TABLE IF EXISTS `order_history`;
+    DROP TABLE IF EXISTS `order_item`;
+        -- USER table
+    CREATE TABLE `user` (
+    `고객 ID` INT NOT NULL COMMENT 'Customer ID',
+      `전화번호` VARCHAR(20) NOT NULL COMMENT 'Phone Number',
+                         `누적금액` INT COMMENT 'Total Spent',
+                              PRIMARY KEY (`고객 ID`)
+    ) COMMENT='User Table';
+        -- CATEGORY table
+    CREATE TABLE `category` (
+    `카테고리 ID` INT NOT NULL COMMENT 'Category ID',
+    `카테고리명` VARCHAR(50) NOT NULL COMMENT 'Category Name',
+                        PRIMARY KEY (`카테고리 ID`)
+    ) COMMENT='Category Table';
+        -- MENU table
+    CREATE TABLE `menu` (
+    `메뉴 ID` INT NOT NULL COMMENT 'Menu ID',
+      `메뉴명` VARCHAR(100) NOT NULL COMMENT 'Menu Name',
+                         `메뉴가격` INT NOT NULL COMMENT 'Price',
+                              `카테고리 ID` INT COMMENT 'Category ID',
+                                 PRIMARY KEY (`메뉴 ID`)
+    ) COMMENT='Menu Table';
+        -- OPTION table
+    CREATE TABLE `option` (
+    `옵션 ID` INT NOT NULL COMMENT 'Option ID',
+      `옵션 이름` VARCHAR(100) NOT NULL COMMENT 'Option Name',
+                           `옵션 상세` VARCHAR(255) COMMENT 'Option Description',
+                                                `필수 여부` BOOLEAN NOT NULL COMMENT 'Is Required Option',
+                                                                PRIMARY KEY (`옵션 ID`)
+    ) COMMENT='Option Table';
+        -- MENU-OPTION RELATION table
+    CREATE TABLE `menu_option_relation` (
+    `옵션 ID` INT NOT NULL,
+      `메뉴 ID` INT NOT NULL,
+              PRIMARY KEY (`옵션 ID`, `메뉴 ID`)
+    ) COMMENT='Menu-Option Relation';
+        -- MEMBERSHIP table
+    CREATE TABLE `membership` (
+    `멤버십 ID` INT NOT NULL COMMENT 'Membership ID',
+      `멤버십 이름` VARCHAR(50) NOT NULL COMMENT 'Membership Name',
+                           `기준 금액` INT NOT NULL COMMENT 'Threshold Amount',
+                                 `고객 ID` INT NOT NULL COMMENT 'Customer ID',
+                                     PRIMARY KEY (`멤버십 ID`)
+    ) COMMENT='Membership Table';
+        -- ORDER HISTORY table
+    CREATE TABLE `order_history` (
+    `주문 ID` INT NOT NULL COMMENT 'Order ID',
+      `고객 ID` INT NOT NULL COMMENT 'Customer ID',
+        PRIMARY KEY (`주문 ID`)
+    ) COMMENT='Order History Table';
+        -- ORDER ITEM table
+    CREATE TABLE `order_item` (
+    `주문 ID` INT NOT NULL COMMENT 'Order ID',
+      `메뉴 ID` INT NOT NULL COMMENT 'Menu ID',
+        `주문수량` INT NOT NULL COMMENT 'Quantity',
+    `옵션 ID` INT COMMENT 'Option ID',
+    `옵션 값` VARCHAR(50) COMMENT 'Selected Option Value',
+                       PRIMARY KEY (`주문 ID`, `메뉴 ID`, `옵션 ID`)
+    ) COMMENT='Order Item Table';
+        -- INSERT INTO USER
+    INSERT INTO `user` VALUES (1, '010-1234-5678', 0);
+    INSERT INTO `user` VALUES (2, '010-5678-5678', 1000000);
+
+
+        -- INSERT INTO CATEGORY
+    INSERT INTO `category` VALUES (1, 'Espresso');
+    INSERT INTO `category` VALUES (2, 'Latte');
+    INSERT INTO `category` VALUES (3, 'Cold Brew');
+    INSERT INTO `category` VALUES (4, 'Cart');
+    INSERT INTO `category` VALUES (5, 'Waiting');
+    INSERT INTO `category` VALUES (6, 'Exiting');
+
+
+        -- INSERT INTO MENU
+    INSERT INTO `menu` VALUES (1, '씨솔트 카라멜 콜드 브루', 6500, 3);
+    INSERT INTO `menu` VALUES (2, '아이스 슈크림 라떼', 6500, 1);
+    INSERT INTO `menu` VALUES (3, '유자&오렌지 에너지 피지오', 6300, 1);
+    INSERT INTO `menu` VALUES (4, '체리&자두 에너지 피지오', 6300, 1);
+    INSERT INTO `menu` VALUES (5, '스타벅스 딸기 라떼', 6500, 1);
+    INSERT INTO `menu` VALUES (6, '아이스 카페 아메리카노', 4700, 1);
+    INSERT INTO `menu` VALUES (8, '카페 아메리카노', 4700, 1);
+    INSERT INTO `menu` VALUES (9, '아이스 카페 라떼', 5200, 2);
+    INSERT INTO `menu` VALUES (10, '아이스 커피', 4500, 1);
+    INSERT INTO `menu` VALUES (11, '아이스 블론드 카페 아메리카노', 4700, 1);
+    INSERT INTO `menu` VALUES (12, '아이스 자몽 허니 블랙티', 5900, 1);
+    INSERT INTO `menu` VALUES (13, '아이스 플랫 화이트', 5800, 1);
+    INSERT INTO `menu` VALUES (15, '아이스 카페 모카', 5700, 1);
+    INSERT INTO `menu` VALUES (16, '아이스 카푸치노', 5200, 1);
+    INSERT INTO `menu` VALUES (17, '아이스 카라멜 마키아또', 6100, 1);
+    INSERT INTO `menu` VALUES (18, '아이스 화이트 초콜릿 모카', 6100, 1);
+    INSERT INTO `menu` VALUES (19, '커피 스타벅스 더블 샷', 5300, 1);
+    INSERT INTO `menu` VALUES (20, '바닐라 스타벅스 더블 샷', 5300, 1);
+    INSERT INTO `menu` VALUES (21, '헤이즐넛 스타벅스 더블 샷', 5300, 1);
+    INSERT INTO `menu` VALUES (22, '에스프레소', 3900, 1);
+    INSERT INTO `menu` VALUES (23, '에스프레소 마키아또', 3900, 1);
+    INSERT INTO `menu` VALUES (24, '에스프레소 콘파나', 4100, 1);
+    INSERT INTO `menu` VALUES (25, '아이스 슈크림 라떼', 6500, 2);
+    INSERT INTO `menu` VALUES (26, '스타벅스 딸기 라떼', 6500, 2);
+    INSERT INTO `menu` VALUES (27, '아이스 카페 라떼', 5200, 2);
+    INSERT INTO `menu` VALUES (30, '아이스 스타벅스 돌체 라떼', 6100, 2);
+    INSERT INTO `menu` VALUES (32, '아이스 블론드 슈크림 라떼', 6500, 2);
+    INSERT INTO `menu` VALUES (33, '아이스 블론드 카페 라떼', 5200, 2);
+    INSERT INTO `menu` VALUES (34, '아이스 블론드 스타벅스 돌체 라떼', 6100, 2);
+    INSERT INTO `menu` VALUES (35, '아이스 제주 말차 라떼', 6100, 2);
+    INSERT INTO `menu` VALUES (36, '아이스 인절미 제주 말차 라떼', 7900, 2);
+    INSERT INTO `menu` VALUES (37, '콜드 브루', 5100, 3);
+    INSERT INTO `menu` VALUES (38, '돌체 콜드 브루', 6000, 3);
+    INSERT INTO `menu` VALUES (39, '바닐라 크림 콜드 브루', 6000, 3);
+    INSERT INTO `menu` VALUES (40, '오트 콜드 브루', 6000, 3);
+    INSERT INTO `menu` VALUES (41, '나이트로 바닐라 크림', 6300, 3);
+    INSERT INTO `menu` VALUES (42, '나이트로 콜드 브루', 6200, 3);
+    INSERT INTO `menu` VALUES (43, '흑임자 크림 콜드 브루', 7500, 3);
+    INSERT INTO `menu` VALUES (44, '여수 윤슬 헤이즐넛 콜드 브루', 7500, 3);
+
+        -- INSERT INTO OPTION
+        -- 필수 옵션
+    INSERT INTO `option` VALUES (101, '포장/매장', '포장 또는 매장 이용 여부', TRUE);
+    INSERT INTO `option` VALUES (102, '컵 사이즈', '컵 사이즈 선택', TRUE);
+    INSERT INTO `option` VALUES (103, 'ICED/HOT', 'ICED 또는 HOT 선택', TRUE);
+
+        -- 선택 옵션
+    INSERT INTO `option` VALUES (201, '에스프레소 샷', '에스프레소 샷 추가/빼기 (0~10)', FALSE);
+    INSERT INTO `option` VALUES (202, '시럽', '시럽 추가/빼기 (0~10)', FALSE);
+    INSERT INTO `option` VALUES (203, '얼음', '얼음 양 선택 (없음, 보통, 많이)', FALSE);
+
+        -- INSERT INTO MENU-OPTION RELATION
+        -- 모든 메뉴에 필수 옵션 연결 (예시)
+    INSERT INTO `menu_option_relation` VALUES (101, 1);
+    INSERT INTO `menu_option_relation` VALUES (102, 1);
+    INSERT INTO `menu_option_relation` VALUES (103, 1);
+    INSERT INTO `menu_option_relation` VALUES (101, 2);
+    INSERT INTO `menu_option_relation` VALUES (102, 2);
+    INSERT INTO `menu_option_relation` VALUES (103, 2);
+    INSERT INTO `menu_option_relation` VALUES (101, 3);
+    INSERT INTO `menu_option_relation` VALUES (102, 3);
+    INSERT INTO `menu_option_relation` VALUES (103, 3);
+    INSERT INTO `menu_option_relation` VALUES (101, 4);
+    INSERT INTO `menu_option_relation` VALUES (102, 4);
+    INSERT INTO `menu_option_relation` VALUES (103, 4);
+    INSERT INTO `menu_option_relation` VALUES (101, 5);
+    INSERT INTO `menu_option_relation` VALUES (102, 5);
+    INSERT INTO `menu_option_relation` VALUES (103, 5);
+    INSERT INTO `menu_option_relation` VALUES (101, 6);
+    INSERT INTO `menu_option_relation` VALUES (102, 6);
+    INSERT INTO `menu_option_relation` VALUES (103, 6);
+    INSERT INTO `menu_option_relation` VALUES (101, 8);
+    INSERT INTO `menu_option_relation` VALUES (102, 8);
+    INSERT INTO `menu_option_relation` VALUES (103, 8);
+    INSERT INTO `menu_option_relation` VALUES (101, 9);
+    INSERT INTO `menu_option_relation` VALUES (102, 9);
+    INSERT INTO `menu_option_relation` VALUES (103, 9);
+    INSERT INTO `menu_option_relation` VALUES (101, 10);
+    INSERT INTO `menu_option_relation` VALUES (102, 10);
+    INSERT INTO `menu_option_relation` VALUES (103, 10);
+    INSERT INTO `menu_option_relation` VALUES (101, 11);
+    INSERT INTO `menu_option_relation` VALUES (102, 11);
+    INSERT INTO `menu_option_relation` VALUES (103, 11);
+    INSERT INTO `menu_option_relation` VALUES (101, 12);
+    INSERT INTO `menu_option_relation` VALUES (102, 12);
+    INSERT INTO `menu_option_relation` VALUES (103, 12);
+    INSERT INTO `menu_option_relation` VALUES (101, 13);
+    INSERT INTO `menu_option_relation` VALUES (102, 13);
+    INSERT INTO `menu_option_relation` VALUES (103, 13);
+    INSERT INTO `menu_option_relation` VALUES (101, 15);
+    INSERT INTO `menu_option_relation` VALUES (102, 15);
+    INSERT INTO `menu_option_relation` VALUES (103, 15);
+    INSERT INTO `menu_option_relation` VALUES (101, 16);
+    INSERT INTO `menu_option_relation` VALUES (102, 16);
+    INSERT INTO `menu_option_relation` VALUES (103, 16);
+    INSERT INTO `menu_option_relation` VALUES (101, 17);
+    INSERT INTO `menu_option_relation` VALUES (102, 17);
+    INSERT INTO `menu_option_relation` VALUES (103, 17);
+    INSERT INTO `menu_option_relation` VALUES (101, 18);
+    INSERT INTO `menu_option_relation` VALUES (102, 18);
+    INSERT INTO `menu_option_relation` VALUES (103, 18);
+    INSERT INTO `menu_option_relation` VALUES (101, 19);
+    INSERT INTO `menu_option_relation` VALUES (102, 19);
+    INSERT INTO `menu_option_relation` VALUES (103, 19);
+    INSERT INTO `menu_option_relation` VALUES (101, 20);
+    INSERT INTO `menu_option_relation` VALUES (102, 20);
+    INSERT INTO `menu_option_relation` VALUES (103, 20);
+    INSERT INTO `menu_option_relation` VALUES (101, 21);
+    INSERT INTO `menu_option_relation` VALUES (102, 21);
+    INSERT INTO `menu_option_relation` VALUES (103, 21);
+    INSERT INTO `menu_option_relation` VALUES (101, 22);
+    INSERT INTO `menu_option_relation` VALUES (102, 22);
+    INSERT INTO `menu_option_relation` VALUES (103, 22);
+    INSERT INTO `menu_option_relation` VALUES (101, 23);
+    INSERT INTO `menu_option_relation` VALUES (102, 23);
+    INSERT INTO `menu_option_relation` VALUES (103, 23);
+    INSERT INTO `menu_option_relation` VALUES (101, 24);
+    INSERT INTO `menu_option_relation` VALUES (102, 24);
+    INSERT INTO `menu_option_relation` VALUES (103, 24);
+    INSERT INTO `menu_option_relation` VALUES (101, 25);
+    INSERT INTO `menu_option_relation` VALUES (102, 25);
+    INSERT INTO `menu_option_relation` VALUES (103, 25);
+    INSERT INTO `menu_option_relation` VALUES (101, 26);
+    INSERT INTO `menu_option_relation` VALUES (102, 26);
+    INSERT INTO `menu_option_relation` VALUES (103, 26);
+    INSERT INTO `menu_option_relation` VALUES (101, 27);
+    INSERT INTO `menu_option_relation` VALUES (102, 27);
+    INSERT INTO `menu_option_relation` VALUES (103, 27);
+    INSERT INTO `menu_option_relation` VALUES (101, 30);
+    INSERT INTO `menu_option_relation` VALUES (102, 30);
+    INSERT INTO `menu_option_relation` VALUES (103, 30);
+    INSERT INTO `menu_option_relation` VALUES (101, 32);
+    INSERT INTO `menu_option_relation` VALUES (102, 32);
+    INSERT INTO `menu_option_relation` VALUES (103, 32);
+    INSERT INTO `menu_option_relation` VALUES (101, 33);
+    INSERT INTO `menu_option_relation` VALUES (102, 33);
+    INSERT INTO `menu_option_relation` VALUES (103, 33);
+    INSERT INTO `menu_option_relation` VALUES (101, 34);
+    INSERT INTO `menu_option_relation` VALUES (102, 34);
+    INSERT INTO `menu_option_relation` VALUES (103, 34);
+    INSERT INTO `menu_option_relation` VALUES (101, 35);
+    INSERT INTO `menu_option_relation` VALUES (102, 35);
+    INSERT INTO `menu_option_relation` VALUES (103, 35);
