@@ -6,7 +6,6 @@ import com.starfoxKiosk.user.menu.domain.MenuWithOptions;
 import com.starfoxKiosk.user.menu.service.MenuService;
 import com.starfoxKiosk.user.menu.view.MenuView;
 import java.util.List;
-import java.util.Scanner;
 
 public class MenuController {
 
@@ -30,9 +29,11 @@ public class MenuController {
                     System.out.println("종료합니다.");
                     return;
                 case 33:
-                    showCart();
+                    selectCartMenu();
                     break;
                 case 44:
+                    //Todo
+                    /*대기번호 보기*/
                 default:
                     selectedMenu(categories.get(n));
 
@@ -53,8 +54,6 @@ public class MenuController {
                 if (selectOption(menuWithOptions)) {
                     addCart(menuWithOptions);
                 }
-
-
         }
     }
 
@@ -71,40 +70,40 @@ public class MenuController {
         menuService.addCart(menu);
     }
 
-    private void showCart() {
+    private void selectCartMenu() {
         List<MenuWithOptions> cart = menuService.getCart();
         menuView.printCart(cart);
-
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+        int n = menuView.inputCartMenu();
 
         switch (n) {
             case 0:
                 return;
             case 55:
                 // 결제 페이지
+                /**
+                 * Todo
+                 * cart 넘겨주기
+                 //넘겨주기
+                 */
                 break;
             default:
                 modifyMenu(cart.get(n - 1), n - 1);
-                // 수정
         }
     }
 
     private void modifyMenu(MenuWithOptions menuWithOptions, int index) {
         //삭제를 원한다.
-        int n = 0;
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
+        int n = menuView.inputModifyMenu(menuWithOptions);
 
         switch (n) {
             case 0:
                 return;
             case 1:
-                //변경
                 selectOption(menuWithOptions);
                 break;
             case 2:
                 menuService.deleteCartMenu(index);
+                break;
         }
     }
 }

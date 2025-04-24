@@ -59,7 +59,7 @@ public class MenuWithOptions extends Menu {
     public String toString() {
         String s = "";
 
-        s += this.getName() + " ";
+        s += this.getName() + ", ";
         s += getCount() + "개";
 
         s += "\n";
