@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="starfoxdb@localhost" uuid="ccc00466-5fa5-44f2-9076-1cca25a810f6">
+    <data-source source="LOCAL" name="starfoxdb@mysql.coffit.xyz" uuid="87566227-61a0-4c96-9dd5-801f00ceeb86">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
