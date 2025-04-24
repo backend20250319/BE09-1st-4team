@@ -5,6 +5,7 @@ import static com.starfoxKiosk.common.JDBCTemplate.getConnection;
 import com.starfoxKiosk.user.menu.domain.Category;
 import com.starfoxKiosk.user.menu.domain.Menu;
 import com.starfoxKiosk.user.menu.domain.MenuWithOptions;
+import com.starfoxKiosk.user.menu.domain.OrderDTO;
 import com.starfoxKiosk.user.menu.repository.MenuRepository;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -48,5 +49,11 @@ public class MenuService {
 
     public void deleteCartMenu(int i) {
         cart.remove(i);
+    }
+
+    public List<OrderDTO> getOrder() {
+        Connection con = getConnection();
+        List<OrderDTO> orders = menuRepository.findOrders(con);
+        return orders;
     }
 }

@@ -4,6 +4,7 @@ import com.starfoxKiosk.common.JDBCTemplate;
 import com.starfoxKiosk.user.menu.domain.Category;
 import com.starfoxKiosk.user.menu.domain.Menu;
 import com.starfoxKiosk.user.menu.domain.MenuWithOptions;
+import com.starfoxKiosk.user.menu.domain.OrderDTO;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -63,7 +64,8 @@ public class MenuRepository {
                 String menuName = rs.getString(2);
                 String categoryName = rs.getString(3);
                 int categoryId = rs.getInt(4);
-                menus.add(new Menu(menuId, menuName, categoryName, categoryId));
+                int price = rs.getInt(5);
+                menus.add(new Menu(menuId, menuName, categoryName, categoryId, price));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -90,8 +92,10 @@ public class MenuRepository {
                 String menuName = rs.getString(2);
                 String categoryName = rs.getString(3);
                 int categoryId = rs.getInt(4);
+                int price = rs.getInt(5);
 
-                menuWithOptions = new MenuWithOptions(menuId, menuName, categoryName, categoryId);
+                menuWithOptions = new MenuWithOptions(menuId, menuName, categoryName, categoryId,
+                    price);
             }
             /*
             pstmt = con.prepareStatement(optionSql);
@@ -112,5 +116,30 @@ public class MenuRepository {
         }
 
         return menuWithOptions;
+    }
+
+    public List<OrderDTO> findOrders(Connection con) {
+        String sql = prop.getProperty("selectOrder");
+        List<OrderDTO> orders = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int orderId = rs.getInt(1);
+                int customId = rs.getInt(2);
+                String status = rs.getString(3);
+
+                orders.add(new OrderDTO(orderId, customId, status));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCTemplate.close(rs);
+            JDBCTemplate.close(pstmt);
+        }
+
+        return orders;
     }
 }

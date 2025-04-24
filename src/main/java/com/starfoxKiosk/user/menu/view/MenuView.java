@@ -4,6 +4,7 @@ import com.starfoxKiosk.user.menu.domain.Category;
 import com.starfoxKiosk.user.menu.domain.Menu;
 import com.starfoxKiosk.user.menu.domain.MenuWithOptions;
 import com.starfoxKiosk.user.menu.domain.Option;
+import com.starfoxKiosk.user.menu.domain.OrderDTO;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,6 +32,7 @@ public class MenuView {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < menus.size(); i++) {
             sb.append(i + 1).append(".").append(menus.get(i).getName());
+            sb.append(", 가격 : ").append(menus.get(i).getPrice());
             sb.append("\n");
         }
         sb.append("0.뒤로가기\n");
@@ -63,6 +65,7 @@ public class MenuView {
         }
         System.out.print("개수를 입력하세요 : ");
         menuWithOptions.setCount(sc.nextInt());
+        menuWithOptions.setTotalPrice(menuWithOptions.getCount() * menuWithOptions.getPrice());
         sc.nextLine();
 
         System.out.print("사이즈를 선택하세요 (R, L) : ");
@@ -96,6 +99,15 @@ public class MenuView {
         int n = sc.nextInt();
         sc.nextLine();
         return n;
+    }
+
+
+    public void printOrder(List<OrderDTO> list) {
+        for (OrderDTO order : list) {
+            System.out.println(order);
+        }
+        System.out.println("아무거나 입력해주세요 : ");
+        String s = sc.nextLine();
     }
 
 }

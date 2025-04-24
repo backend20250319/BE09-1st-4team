@@ -5,6 +5,7 @@ import com.starfoxKiosk.user.membership.service.MemshipService;
 import com.starfoxKiosk.user.membership.view.MemshipView;
 
 public class MembershipController {
+
     private MemshipService memshipService;
     private MemshipView memshipView;
 
@@ -13,9 +14,9 @@ public class MembershipController {
         this.memshipView = memshipView;
     }
 
-    public Membership start(){
+    public Membership start() {
         String phone = memshipView.inputPhoneNum();
-        Membership membership =  memshipService.findByPhone(phone);
+        Membership membership = memshipService.findByPhone(phone);
 
         if (membership != null) {
             memshipView.displayMembership(membership);
