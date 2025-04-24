@@ -10,8 +10,8 @@ public class MembershipController {
     private MemshipView memshipView;
 
     public MembershipController() {
-        this.memshipService = memshipService;
-        this.memshipView = memshipView;
+        this.memshipService = new MemshipService();
+        this.memshipView =  new MemshipView();
     }
 
     public Membership start() {

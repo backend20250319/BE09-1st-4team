@@ -4,13 +4,14 @@ import com.starfoxKiosk.user.membership.controller.MembershipController;
 import com.starfoxKiosk.user.membership.domain.Membership;
 import com.starfoxKiosk.user.membership.view.MemshipView;
 import com.starfoxKiosk.user.menu.domain.MenuWithOptions;
+
 import com.starfoxKiosk.user.pay.domain.Order;
 import com.starfoxKiosk.user.pay.service.OrderService;
 import com.starfoxKiosk.user.pay.view.OrderView;
 import com.starfoxKiosk.user.pay.view.PaymentView;
 
 import java.util.List;
-import java.util.Scanner;
+
 
 public class OrderController {
 
@@ -29,9 +30,9 @@ public class OrderController {
     public void start(List<MenuWithOptions> cart) {
 
         MembershipController membershipController = new MembershipController();
-        Membership membership = new membershipController.start();
+        Membership membership = membershipController.start();
 
-        int total =  cart.stream().mapToInt(MenuWithOptions::get).sum();
+        int total =  cart.stream().mapToInt(MenuWithOptions::getTotalPrice).sum();
         if(membership != null) {
             double discountRate = membership.getMembershipName().equals("Gold") ? 0.1
                     : membership.getMembershipName().equals("Silver") ? 0.05 : 0.01;
@@ -43,15 +44,19 @@ public class OrderController {
 
         System.out.println("총 결제 금액: " + total + "원");
         String payType = paymentView.selectPaymentMethod();
+        System.out.println("선택한 결제 수단: " + payType);
         paymentView.showResult(true);
 
 
         // 주문 생성
         int newOrderId = generateOrderId();
-        int userId = (membership != null) ? membership.getPhoneNumber().hashCode() : 0;
+        //수정
+        int userId = 1;
+        Order order = new Order(newOrderId,userId);
 
+        orderService.insert(order);
 
-        System.out.println("주문 완료! 대기번호: " + newOrderId + " [상태: " + order.getStatus() + "]");
+        System.out.println("주문 완료! 대기번호: " + newOrderId );
     }
 
 

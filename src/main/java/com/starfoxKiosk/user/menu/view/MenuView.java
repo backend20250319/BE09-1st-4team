@@ -83,6 +83,7 @@ public class MenuView {
 
     public int inputCartMenu() {
         System.out.println("0. 뒤로");
+        System.out.println("55. 결제");
         System.out.print("번호를 입력하세요 : ");
         int n = sc.nextInt();
         sc.nextLine();
