@@ -35,11 +35,12 @@ public class PaymentView {
 
     }
 
+
     public void showResult(boolean b) {
         if (b) {
-            System.out.println("결제가 완료되었습니다. 감사합니다.");
+            System.out.println("✅결제가 완료되었습니다. 감사합니다.");
         }else {
-            System.out.println("결제가 실패하였습니다.");
+            System.out.println("❌결제가 실패하였습니다.");
         }
     }
 }

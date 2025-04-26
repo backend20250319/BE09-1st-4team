@@ -14,17 +14,35 @@ public class JDBCTemplate {
     public static Connection getConnection() {
         Properties props = new Properties();
         Connection con = null;
-        try {
-            props.load(
-                new FileReader(
-                    "src/main/java/com/starfoxKiosk/config/jdbc-info.properties"));
+//        try {
+//            props.load(
+//                new FileReader(
+//                    "src/main/java/com/starfoxKiosk/config/jdbc-info.properties"));
+//
+//            String url = props.getProperty("url");
+//
+//            con = DriverManager.getConnection(url, props);
+//
+//            // 자동 커밋 설정을 수동 커밋 설정으로 변경하여 서비스 계층에서 트랜잭션을 컨트롤할 수 있도록 함
+//            con.setAutoCommit(false);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+
+        //어디서든 로드할 수 있음
+        try (var input = JDBCTemplate.class.getClassLoader()
+                .getResourceAsStream("jdbc-info.properties")) {
+            if (input == null) {
+                throw new RuntimeException("jdbc-info.properties 파일을 찾을 수 없습니다.");
+            }
+
+            props.load(input); // InputStream으로 로딩
 
             String url = props.getProperty("url");
 
             con = DriverManager.getConnection(url, props);
-
-            // 자동 커밋 설정을 수동 커밋 설정으로 변경하여 서비스 계층에서 트랜잭션을 컨트롤할 수 있도록 함
             con.setAutoCommit(false);
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

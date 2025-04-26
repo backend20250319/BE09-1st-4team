@@ -50,11 +50,25 @@ public class OrderController {
 
         // 주문 생성
         int newOrderId = generateOrderId();
-        //수정
-        int userId = 1;
-        Order order = new Order(newOrderId,userId);
 
+        //회원이 있으면 customId를 가져오고, 없으면 예외처리
+        int userId = (membership != null) ? membership.getCustomId():0 ;
+
+        if (userId == 0) {
+            System.out.println("⚠️ 비회원은 주문할 수 없습니다.");
+            return;
+        }
+
+        Order order = new Order(newOrderId,userId);
         orderService.insert(order);
+
+        paymentView.showResult(true);
+
+        orderView.showOrderSuccess(newOrderId);
+
+        List<Order> orderList = orderService.getOrders();
+        orderView.displayOrders(orderList);
+
 
         System.out.println("주문 완료! 대기번호: " + newOrderId );
     }

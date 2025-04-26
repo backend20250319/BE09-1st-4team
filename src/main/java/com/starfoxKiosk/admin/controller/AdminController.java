@@ -72,11 +72,11 @@ public class AdminController {
 
     // 제조완료
 
-    public List<Order> markOrderAs제조완료() {
-
-       List<Order> orderList = adminService.get제조완료Orders();
-        return orderList;
-    }
+//    public List<Order> markOrderAs제조완료() {
+//
+//       List<Order> orderList = adminService.get제조완료Orders();
+//        return orderList;
+//    }
 
    // 픽업완료
 

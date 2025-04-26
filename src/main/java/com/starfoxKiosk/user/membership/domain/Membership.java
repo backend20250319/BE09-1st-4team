@@ -4,15 +4,15 @@ public class Membership {
     private int membershipId;
     private String membershipName;
     private int defaultPrice;
-    private int customerId;
+    private int customId;       // 회원 ID (tbl_user.customId)
 
-    public Membership() {}
 
-    public Membership(int membershipId, String membershipName, int defaultPrice, int customerId) {
+
+    public Membership(int membershipId, String membershipName, int defaultPrice, int customId) {
         this.membershipId = membershipId;
         this.membershipName = membershipName;
         this.defaultPrice = defaultPrice;
-        this.customerId = customerId;
+        this.customId = customId;
     }
 
     public int getMembershipId() {
@@ -39,12 +39,12 @@ public class Membership {
         this.defaultPrice = defaultPrice;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public int getCustomId() {
+        return customId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomId(int customId) {
+        this.customId = customId;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Membership {
                 "membershipId=" + membershipId +
                 ", membershipName='" + membershipName + '\'' +
                 ", defaultPrice=" + defaultPrice +
-                ", customerId=" + customerId +
+                ", customId=" + customId +
                 '}';
     }
 
