@@ -1,8 +1,6 @@
 package com.starfoxKiosk.admin.controller;
 
 import com.starfoxKiosk.admin.model.dto.Menu;
-
-import com.starfoxKiosk.admin.model.dto.Option;
 import com.starfoxKiosk.admin.model.dto.Order;
 import com.starfoxKiosk.admin.model.service.AdminService;
 
@@ -12,6 +10,7 @@ public class AdminController {
 
     private final AdminService adminService = new AdminService();
 
+    // 상품 목록 조회
     public void viewMenuItems() {
         List<Menu> menuList = adminService.getAllMenuItems();
         if (menuList.isEmpty()) {
@@ -25,64 +24,76 @@ public class AdminController {
         }
     }
 
+    // 대기 중인 주문 목록 조회
+    public List<Order> viewWaitingOrders() {
+        return adminService.getWaitingOrders();
+    }
+
+    // 대기 중인 주문을 제조 완료 상태로 변경
+    public boolean markOrderAsManufactured(int orderId) {
+        return adminService.markOrderAsCompleted(orderId);  // AdminService의 markOrderAsCompleted 호출
+    }
+
+    // 제조 완료된 주문 목록 조회
+    public List<Order> viewManufacturedOrders() {
+        return adminService.getCompletedOrders();
+    }
+
+    // 제조 완료된 주문을 고객 픽업 완료로 변경
+    public boolean markOrderAsPickupCompleted(int orderId) {
+        return adminService.markOrderAsPickupCompleted(orderId);  // AdminService의 markOrderAsPickupCompleted 호출
+    }
+
+    // 특정 상품 조회
     public Menu getMenuItemById(int id) {
         return adminService.getMenuItemById(id);
     }
 
-    public boolean updateMenuItem(Menu menu) {
-        return adminService.updateMenuItem(menu);
-    }
-
+    // 상품 추가
     public boolean addMenuItem(Menu menu) {
         return adminService.addMenuItem(menu);
     }
 
-    public boolean deleteMenuItem(Menu menu) {
-        return adminService.deleteMenuItem(menu.getId());
+    // 상품 수정
+    public boolean updateMenuItem(Menu menu) {
+        return adminService.updateMenuItem(menu);
     }
 
+    // 상품 삭제
+    public boolean deleteMenuItem(int menuId) {
+        return adminService.deleteMenuItem(menuId);
+    }
+
+    // 특정 메뉴의 옵션 조회 (추후 고도화 예정)
+    /*
     public List<Option> getOptionsForMenu(Menu menu) {
         return adminService.getOptionsForMenu(menu.getId());
     }
+    */
 
+    // 옵션 추가 (추후 고도화 예정)
+    /*
     public boolean addOption(Option option) {
         return adminService.addOption(option);
     }
+    */
 
+    // 옵션 수정 (추후 고도화 예정)
+    /*
     public boolean updateOption(Option option) {
         return adminService.updateOption(option);
     }
+    */
 
-    public boolean deleteOption(Option option) {
-        return adminService.deleteOption(option.getId());
+    // 옵션 삭제 (추후 고도화 예정)
+    /*
+    public boolean deleteOption(int optionId) {
+        return adminService.deleteOption(optionId);
     }
+    */
 
-    public List<Order> getWaitingOrders(Order order) {
+    // 대기 중인 주문 조회
+    public List<Order> getWaitingOrders() {
         return adminService.getWaitingOrders();
     }
-
-    // 대기중
-
-    public List<Order> viewWaitingOrders() {
-
-        List<Order> orderList = adminService.getWaitingOrders();
-
-        return orderList;
-    }
-
-    // 제조완료
-
-//    public List<Order> markOrderAs제조완료() {
-//
-//       List<Order> orderList = adminService.get제조완료Orders();
-//        return orderList;
-//    }
-
-   // 픽업완료
-
-   public List<Order> markOrderAs픽업완료() {
-
-       System.out.println("제품 픽업 완료 하였습니다.");
-       return List.of();
-   }
 }

@@ -4,16 +4,14 @@ public class Option {
     private int id;
     private String name;
     private String detail;
-    private String optionType; // QUANTITY, CHOICE, BOOLEAN, TEXT 등
+    private String optionType;
     private Integer maxQuantity;
     private String allowedValues;
     private boolean isRequired;
 
-    // 기본 생성자
     public Option() {
     }
 
-    // 모든 필드를 포함하는 생성자
     public Option(int id, String name, String detail, String optionType, Integer maxQuantity, String allowedValues) {
         this.id = id;
         this.name = name;
@@ -23,7 +21,6 @@ public class Option {
         this.allowedValues = allowedValues;
     }
 
-    // Getter 메소드
     public int getId() { return id; }
 
     public String getName() {
@@ -50,7 +47,6 @@ public class Option {
         return isRequired;
     }
 
-    // Setter 메소드
     public void setId(int id) {
         this.id = id;
     }
